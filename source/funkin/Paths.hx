@@ -307,6 +307,25 @@ class Paths
 		return FunkinAssets.exists(getPath(key, parentFolder, checkMods));
 	}
 	
+	/**
+	 * Attempts to snipe the mod folder a file belongs to
+	 * Taken from Vs. Imposter LEGACY (thanks ashleyyyyyy)
+	 * 
+	 * @param path The path to find mod folder from
+	 * @param exclude Optional, ignore a folder name. ex. "scripts"
+	 * @return The name of the mod folder. Empty if unable to find
+	 */
+	public static function getModFolder(path:String, ?exclude:String):String
+	{
+		final contentIndex:Int = path.indexOf('content/');
+		if (contentIndex == -1) return '';
+		
+		var folder:String = (path.substr(contentIndex + 'content/'.length));
+		folder = folder.substring(0, folder.indexOf('/'));
+		
+		return (folder == exclude ? '' : folder);
+	}
+	
 	public static inline function getMultiAtlas(keys:Array<String>, ?parentFolder:String, allowGPU:Bool = true, checkMods:Bool = true):FlxAtlasFrames // from psych
 	{
 		if (keys.length == 0) return null;
@@ -424,12 +443,18 @@ class Paths
 	
 	/**
 	 * Removes all non alpha numeric chars and replaces spaces with `-` to lower in a given String.
+	 * Removes trailing `.` characters since the Windows OS does not allow you to end a folder name with a `.`
 	 * 
-	 * Example: My Song Path! == my-song-path
+	 * ex: 
+	 	My Song Path! == my-song-path
+	 	MY SONG PATH... == my-song-path
 	 */
 	public static inline function sanitize(path:String):String
 	{
-		return ~/[^- a-zA-Z0-9..\/]+\//g.replace(path, '').replace(' ', '-').trim().toLowerCase();
+		var ret = ~/[^- a-zA-Z0-9..\/]+\//g.replace(path, '').replace(' ', '-').trim().toLowerCase();
+		while(ret.endsWith('.')) ret = ret.substr(0, ret.length - 1);
+
+		return ret;
 	}
 	
 	/**
