@@ -287,7 +287,12 @@ class FunkinScript extends IrisEx implements IFlxDestroyable
 		set("FlxSpriteElement", animate.internal.elements.FlxSpriteElement);
 		
 		set('Controls', funkin.input.Controls);
-		
+
+		// foxlite
+		set('FoxFunkinSprite', foxlite.funkin.FoxFunkinSprite);
+		set('FoxFPSCamera', foxlite.extras.FoxFPSCamera);
+		set('FoxPanoramaSky', foxlite.sky.FoxPanoramaSky);
+
 		// abstracts
 		set("FlxTextAlign", funkin.utils.MacroUtil.buildAbstract(flixel.text.FlxText.FlxTextAlign));
 		set('FlxAxes', funkin.utils.MacroUtil.buildAbstract(flixel.util.FlxAxes));

@@ -1,5 +1,8 @@
 package;
 
+import foxlite.renderer.FoxRenderer;
+import foxlite.loaders.FoxLoaderUtil;
+
 import funkin.utils.WindowUtil;
 
 import openfl.Lib;
@@ -48,6 +51,9 @@ class Main extends Sprite
 		#if (CRASH_HANDLER && !debug)
 		funkin.backend.CrashHandler.init();
 		#end
+
+		FoxRenderer.initLibs();
+		FoxLoaderUtil.initPathClass(Paths);
 		
 		initHaxeUI();
 		

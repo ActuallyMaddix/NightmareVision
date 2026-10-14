@@ -7,6 +7,8 @@ import animate.FlxAnimate;
 
 class FunkinSprite extends FlxAnimate
 {
+	public var isAtlasSprite:Bool;
+
 	/**
 	 *	Animation offsets
 	 * 
@@ -84,7 +86,7 @@ class FunkinSprite extends FlxAnimate
 		{
 			path = path.trim();
 			
-			final isAtlasSprite = FunkinAssets.exists(Paths.getPath('images/$path/Animation.json', null, true));
+			isAtlasSprite = FunkinAssets.exists(Paths.getPath('images/$path/Animation.json', null, true));
 			if (isAtlasSprite)
 			{
 				var atlas = FlxAnimateFrames.fromAnimate(Paths.getPath('images/$path', null, true), null, null, null, false, {cacheOnLoad: true});
